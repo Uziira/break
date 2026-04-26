@@ -7,6 +7,9 @@ const errorMessage = document.getElementById('error-message');
 
 // Vérification de l'état au chargement
 window.onload = function() {
+    // On cache l'erreur par défaut au chargement
+    if (errorMessage) errorMessage.style.display = 'none';
+
     if (localStorage.getItem('isUnlocked') === 'true') {
         if(loginScreen) loginScreen.style.display = 'none';
         if(mainStory) mainStory.style.display = 'block';
@@ -21,8 +24,11 @@ function checkPassword() {
         mainStory.style.display = 'block';
         updateCounters();
     } else {
-        errorMessage.style.display = 'block';
-        passwordField.value = "";
+        // N'affiche l'erreur que si le champ n'est pas vide
+        if (passwordField.value !== "") {
+            errorMessage.style.display = 'block';
+            passwordField.value = "";
+        }
     }
 }
 
@@ -51,9 +57,10 @@ function updateCounters() {
     calculate(togetherDate, 'together');
 }
 
-// Mise à jour chaque minute pour l'effet live
+// Mise à jour chaque minute
 setInterval(updateCounters, 60000);
 
+// Écouteurs d'événements
 if(document.getElementById('unlockBtn')) {
     document.getElementById('unlockBtn').addEventListener('click', checkPassword);
 }
@@ -61,5 +68,10 @@ if(document.getElementById('unlockBtn')) {
 if(passwordField) {
     passwordField.addEventListener('keypress', (e) => { 
         if (e.key === 'Enter') checkPassword(); 
+    });
+
+    // Cache l'erreur quand l'utilisateur tape à nouveau
+    passwordField.addEventListener('input', () => {
+        if (errorMessage) errorMessage.style.display = 'none';
     });
 }
