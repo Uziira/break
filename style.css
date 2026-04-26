@@ -288,13 +288,11 @@ audio {
     justify-content: center;
 }
 .disclaimer-trad {
-    position: fixed;
-    bottom: 20px;
-    width: 100%;
+    grid-column: span 2; /* Elle prend les 2 colonnes de la grille */
     text-align: center;
+    margin-top: 20px;
     font-size: 12px;
-    color: #ec7796; /* Le rose de ton thème */
+    color: #ec7796;
     opacity: 0.8;
     font-style: italic;
-    pointer-events: none; /* Pour ne pas gêner les clics sur les cartes */
 }
