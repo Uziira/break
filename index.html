@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Story</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="password-content">
+            <h2>Access</h2>
+            <p class="hint">(Hint: It's my phone code)</p>
+            <input type="password" id="passwordField" inputmode="numeric">
+            <button id="unlockBtn">Unlock</button>
+            <p id="error-message">Wrong code.</p>
+        </div>
+    </div>
+
+    <div id="main-story" style="display: none;" class="with-bg">
+        <header class="story-header">
+            <h1>Our Journey</h1>
+            <p>Every step we took together.</p>
+        </header>
+
+        <div class="stats-container">
+            <div class="stat-group">
+                <span class="stat-label">Since we met : </span>
+                <div class="stat-values">
+                    <div class="stat-unit"><span id="met-days">0</span>d</div>
+                    <div class="stat-unit"><span id="met-hours">0</span>h</div>
+                    <div class="stat-unit"><span id="met-mins">0</span>m</div>
+                </div>
+            </div>
+            
+            <div class="stat-group">
+                <span class="stat-label">Since our story began : </span>
+                <div class="stat-values">
+                    <div class="stat-unit"><span id="together-days">0</span>d</div>
+                    <div class="stat-unit"><span id="together-hours">0</span>h</div>
+                    <div class="stat-unit"><span id="together-mins">0</span>m</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <a href="chapter1.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Chapter 1</div>
+                    <h3>Day Zero</h3>
+                </section>
+            </a>
+
+            <a href="chapter2.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Chapter 2</div>
+                    <h3>Late Night Whispers</h3>
+                </section>
+            </a>
+
+            <a href="chapter3.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Chapter 3</div>
+                    <h3>The Point of No Return</h3>
+                </section>
+            </a>
+
+            <a href="chapter4.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Chapter 4</div>
+                    <h3>The Relation</h3>
+                </section>
+            </a>
+
+            <a href="music.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Playlist</div>
+                    <h3>Songs</h3>
+                </section>
+            </a>
+
+            <a href="journal.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Journal</div>
+                    <h3>My Break Up Journal</h3>
+                </section>
+            </a>
+
+            <a href="today.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Today</div>
+                    <h3>The Present Chapter</h3>
+                </section>
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

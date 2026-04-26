@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;600;800&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #fffafa;
+    font-family: 'Inter', sans-serif;
+    color: #4a4a4a;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+}
+
+/* Écran de verrouillage */
+#login-screen {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fffafa;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.password-content {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 35px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    width: 85%;
+    max-width: 320px;
+    text-align: center;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    border: 1.5px solid #f0f0f0;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    background: #fdfdfd;
+    box-sizing: border-box;
+    outline: none;
+}
+
+button {
+    background: #ffb6c1;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 20px;
+    width: 100%;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 20px rgba(255, 182, 193, 0.4);
+    margin-top: 15px;
+}
+
+/* Arrière-plan et Structure */
+.with-bg {
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(rgba(255,250,250,0.8), rgba(255,250,250,0.8)), url('background.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    animation: fadeInPage 0.8s ease-out;
+}
+
+.story-header {
+    text-align: center;
+    padding: 60px 20px 20px 20px;
+}
+
+.story-header h1 {
+    font-size: 2.8rem;
+    color: #ff8fa3;
+    margin: 0;
+    letter-spacing: -1px;
+}
+
+/* Compteur de temps (Index) */
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-values {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.stat-unit {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: #ff8fa3;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #999;
+    text-align: center;
+}
+
+/* Cartes et Chapitres */
+.chapter-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    margin-bottom: 25px;
+}
+
+.story-card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 35px 25px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 15px 35px rgba(255, 182, 193, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.category-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #ff8fa3;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.story-card h3 {
+    margin: 10px 0 0 0;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+/* Page Musique */
+.artist-name {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.audio-player {
+    width: 100%;
+    margin: 20px 0;
+    position: relative;
+    z-index: 10;
+}
+
+audio {
+    width: 100%;
+    height: 40px;
+}
+
+.lyrics-nav {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.lyric-btn {
+    background: rgba(255, 182, 193, 0.1);
+    border: 1px solid #ffb6c1;
+    color: #ff8fa3;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+
+.lyric-btn.active {
+    background: #ffb6c1;
+    color: white;
+}
+
+.lyric-text {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    line-height: 2;
+    color: #4a4a4a;
+    text-align: center;
+    animation: fadeIn 0.4s ease-in;
+}
+
+/* Page Journal / Lecture */
+.chapter-body {
+    font-family: 'Lora', serif;
+    line-height: 2.1;
+    color: #2c2c2c;
+    font-size: 1.15rem;
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 25px;
+    border-radius: 30px;
+}
+
+.journal-date {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: #ff8fa3;
+    display: block;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.back-btn {
+    text-decoration: none;
+    color: #ff8fa3;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+/* Animations */
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Mobile Friendly */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    .story-header h1 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .story-card:hover {
+        background: rgba(255, 255, 255, 0.6);
+        transform: translateY(-2px);
+    }
+}
+.stat-group {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    width: 100%;
+}
+
+.stat-values {
+    display: flex;
+    justify-content: center;
+}
+.disclaimer-trad {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #ec7796; /* Le rose de ton thème */
+    opacity: 0.8;
+    font-style: italic;
+    pointer-events: none; /* Pour ne pas gêner les clics sur les cartes */
+}
