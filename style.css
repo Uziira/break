@@ -296,3 +296,14 @@ audio {
     opacity: 0.8;
     font-style: italic;
 }
+.simple-footer {
+    text-align: center;
+    padding: 60px 0; /* Pour laisser respirer le texte */
+}
+
+.simple-footer p {
+    margin: 5px 0;
+    color: #4a4a4a; /* Une couleur douce comme tes titres */
+    font-size: 18px;
+    font-family: inherit; /* Utilise la même police que ton site */
+}
