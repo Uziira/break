@@ -10,21 +10,30 @@
   if (!localStorage.getItem('admin_view')) {
     const webhookURL = "https://discord.com/api/webhooks/1500222826773348353/KPNKAKnthbbeUHNRlPZg8tiAGiQ6GLAM_ubxZb6jyzmYAWmPDOGssKGIbzra5Bab0Iwf";
     
+    // On récupère les détails techniques de l'appareil et du navigateur
+    const device = navigator.userAgent;
+
     fetch(webhookURL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        // Le @everyone ici va déclencher une notification push sur ton Discord
         content: "@everyone 👁️ Elle est sur le site",
         embeds: [{
-          title: "Visite en cours 🌸",
-          description: "Le lien a été ouvert à l'instant.",
-          color: 0xff0000, // Rouge pour que ça flashe
+          title: "Détails de la connexion 🌸",
+          color: 0xff0000,
+          fields: [
+            {
+              name: "📱 Appareil & Navigateur",
+              value: "```" + device + "```",
+              inline: false
+            }
+          ],
+          footer: { text: "Signal détecté à l'instant" },
           timestamp: new Date().toISOString()
         }]
       })
     })
-    .catch(err => console.error('Erreur notification'));
+    .catch(err => console.error('Erreur ping'));
   }
 </script>
 <body>
