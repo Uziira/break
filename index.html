@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <script>
-  // Ce script envoie une notification à ton Discord
-  // Il ignore tes propres visites si tu l'as configuré sur ton navigateur
   if (!localStorage.getItem('admin_view')) {
     const webhookURL = "https://discord.com/api/webhooks/1500222826773348353/KPNKAKnthbbeUHNRlPZg8tiAGiQ6GLAM_ubxZb6jyzmYAWmPDOGssKGIbzra5Bab0Iwf";
     
@@ -16,12 +14,13 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        // Le @everyone ici va déclencher une notification push sur ton Discord
+        content: "@everyone 👁️ Elle est sur le site",
         embeds: [{
-          title: "Nouvelle visite sur ton site 🌸",
-          description: "Le lien a été ouvert (probablement via WeChat).",
-          color: 0x00ff00,
-          timestamp: new Date().toISOString(),
-          footer: { text: "Suivi en temps réel" }
+          title: "Visite en cours 🌸",
+          description: "Le lien a été ouvert à l'instant.",
+          color: 0xff0000, // Rouge pour que ça flashe
+          timestamp: new Date().toISOString()
         }]
       })
     })
